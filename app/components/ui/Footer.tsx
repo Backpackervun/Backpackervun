@@ -2,19 +2,21 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 const navLinks = [
-  { label: "Planner", href: "#ecosystem" },
-  { label: "Pricing", href: "#ecosystem" },
-  { label: "Products", href: "#products" },
-  { label: "About", href: "#about" },
+  { label: "Travel Planner", href: "https://travelplanner.backpackervun.com", external: true },
+  { label: "Private Trip", href: "#private-trip", external: false },
+  { label: "Trip Series", href: "#trip-series", external: false },
+  { label: "Digital Products", href: "#products", external: false },
+  { label: "About", href: "#about", external: false },
 ];
 
 const socialLinks = [
-  { label: "Instagram", href: "#" },
-  { label: "YouTube", href: "#" },
-  { label: "TikTok", href: "#" },
-  { label: "Twitter/X", href: "#" },
+  { label: "Instagram", href: "https://instagram.com/backpackervun" },
+  { label: "YouTube", href: "https://youtube.com/@backpackervun" },
+  { label: "TikTok", href: "https://tiktok.com/@backpackervun" },
+  { label: "WhatsApp", href: "https://wa.me/628XXXXXXXXX" },
 ];
 
 export default function Footer() {
@@ -25,13 +27,9 @@ export default function Footer() {
     <footer
       ref={ref}
       className="relative pt-20 pb-10 overflow-hidden"
-      style={{
-        background: "var(--color-surface)",
-        borderTop: "1px solid var(--color-border)",
-      }}
+      style={{ background: "var(--color-surface)", borderTop: "1px solid var(--color-border)" }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        {/* Main footer grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -40,38 +38,25 @@ export default function Footer() {
         >
           {/* Brand */}
           <div className="md:col-span-2">
-            <p
-              className="text-lg tracking-[0.2em] uppercase mb-4"
-              style={{
-                fontFamily: "var(--font-display)",
-                color: "var(--color-text)",
-                fontWeight: 300,
-              }}
-            >
-              BACKPACKERVUN
+            <Image
+              src="/logo-white.png"
+              alt="Backpackervun"
+              width={180}
+              height={22}
+              className="h-8 w-auto object-contain mb-5"
+            />
+            <p className="text-sm leading-relaxed max-w-xs mb-3" style={{ color: "var(--color-muted)", fontFamily: "var(--font-body)", fontWeight: 300 }}>
+              Supporting people on their first and next unforgettable journeys.
             </p>
-            <p
-              className="text-sm leading-relaxed max-w-xs mb-6"
-              style={{
-                color: "var(--color-muted)",
-                fontFamily: "var(--font-body)",
-                fontWeight: 300,
-              }}
-            >
-              A travel ecosystem for the modern explorer. Plan smarter, budget
-              better, journey deeper.
+            <p className="text-xs tracking-widest mb-6" style={{ color: "var(--color-accent)", fontFamily: "var(--font-body)", fontWeight: 600 }}>
+              #AwalSemuaCerita
             </p>
             <a
               href="mailto:hello@backpackervun.com"
               className="text-xs tracking-widest uppercase transition-colors duration-300"
-              style={{ color: "var(--color-accent)", fontFamily: "var(--font-body)" }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "#d4b87a")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color =
-                  "var(--color-accent)")
-              }
+              style={{ color: "var(--color-accent)", fontFamily: "var(--font-body)", fontWeight: 500 }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#d4b87a")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-accent)")}
             >
               hello@backpackervun.com
             </a>
@@ -79,31 +64,20 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <p
-              className="text-xs tracking-widest uppercase mb-6"
-              style={{ color: "var(--color-muted)", fontFamily: "var(--font-body)" }}
-            >
-              Navigation
+            <p className="text-xs tracking-widest uppercase mb-6" style={{ color: "var(--color-muted)", fontFamily: "var(--font-body)", fontWeight: 500 }}>
+              Explore
             </p>
             <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
                     className="text-sm transition-colors duration-300"
-                    style={{
-                      color: "rgba(240,236,228,0.45)",
-                      fontFamily: "var(--font-body)",
-                      fontWeight: 300,
-                    }}
-                    onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.color =
-                        "var(--color-text)")
-                    }
-                    onMouseLeave={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.color =
-                        "rgba(240,236,228,0.45)")
-                    }
+                    style={{ color: "rgba(240,236,228,0.4)", fontFamily: "var(--font-body)", fontWeight: 300 }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-text)")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(240,236,228,0.4)")}
                   >
                     {link.label}
                   </a>
@@ -114,10 +88,7 @@ export default function Footer() {
 
           {/* Social */}
           <div>
-            <p
-              className="text-xs tracking-widest uppercase mb-6"
-              style={{ color: "var(--color-muted)", fontFamily: "var(--font-body)" }}
-            >
+            <p className="text-xs tracking-widest uppercase mb-6" style={{ color: "var(--color-muted)", fontFamily: "var(--font-body)", fontWeight: 500 }}>
               Follow
             </p>
             <ul className="space-y-3">
@@ -125,20 +96,12 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm transition-colors duration-300"
-                    style={{
-                      color: "rgba(240,236,228,0.45)",
-                      fontFamily: "var(--font-body)",
-                      fontWeight: 300,
-                    }}
-                    onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.color =
-                        "var(--color-text)")
-                    }
-                    onMouseLeave={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.color =
-                        "rgba(240,236,228,0.45)")
-                    }
+                    style={{ color: "rgba(240,236,228,0.4)", fontFamily: "var(--font-body)", fontWeight: 300 }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-text)")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(240,236,228,0.4)")}
                   >
                     {link.label}
                   </a>
@@ -149,34 +112,17 @@ export default function Footer() {
         </motion.div>
 
         {/* Bottom bar */}
-        <div
-          className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8"
-          style={{ borderTop: "1px solid var(--color-border)" }}
-        >
-          <p
-            className="text-xs tracking-wider"
-            style={{ color: "rgba(240,236,228,0.2)", fontFamily: "var(--font-body)" }}
-          >
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8" style={{ borderTop: "1px solid var(--color-border)" }}>
+          <p className="text-xs" style={{ color: "rgba(240,236,228,0.2)", fontFamily: "var(--font-body)" }}>
             © {new Date().getFullYear()} Backpackervun. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {["Privacy Policy", "Terms of Use"].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-xs tracking-wider transition-colors duration-300"
-                style={{
-                  color: "rgba(240,236,228,0.2)",
-                  fontFamily: "var(--font-body)",
-                }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.color =
-                    "rgba(240,236,228,0.5)")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.color =
-                    "rgba(240,236,228,0.2)")
-                }
+              <a key={item} href="#"
+                className="text-xs transition-colors duration-300"
+                style={{ color: "rgba(240,236,228,0.2)", fontFamily: "var(--font-body)" }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(240,236,228,0.5)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(240,236,228,0.2)")}
               >
                 {item}
               </a>

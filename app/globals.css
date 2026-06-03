@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
   --color-bg: #0a0a0a;
   --color-surface: #111111;
   --color-surface-2: #161616;
@@ -37,9 +37,6 @@ body {
   color: var(--color-bg);
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--color-bg); }
 ::-webkit-scrollbar-thumb { background: rgba(200,169,110,0.3); border-radius: 2px; }
-
-/* Font loading via @font-face fallback with Google Fonts link in layout */

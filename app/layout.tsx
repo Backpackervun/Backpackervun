@@ -4,6 +4,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Backpackervun — Your Traveling Partner",
   description: "Supporting people on their first and next unforgettable journeys. #AwalSemuaCerita",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon-512.png", sizes: "512x512" },
+    ],
+    apple: "/favicon-512.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

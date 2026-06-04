@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import type { HeroData } from "@/app/types/sanity";
 
 interface HeroProps {
@@ -19,13 +20,22 @@ export default function Hero({ hero }: HeroProps) {
       </div>
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
-        <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} className="text-xs tracking-[0.35em] uppercase mb-8" style={{ color: "var(--color-accent)", fontFamily: "var(--font-body)", fontWeight: 500 }}>
-          {hero?.eyebrow ?? "Your Traveling Partner"}
-        </motion.p>
-
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }} className="text-[clamp(2.8rem,9vw,8rem)] leading-none tracking-tight mb-6 select-none font-bold uppercase" style={{ fontFamily: "var(--font-body)", color: "var(--color-text)", letterSpacing: "-0.02em" }}>
-          {hero?.headline ?? "BACKPACKERVUN"}
-        </motion.h1>
+        {/* Logo as headline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8 w-full flex justify-center"
+        >
+          <Image
+            src="/logo-white.png"
+            alt="Backpackervun"
+            width={900}
+            height={110}
+            className="w-full max-w-[min(90vw,860px)] h-auto object-contain select-none"
+            priority
+          />
+        </motion.div>
 
         <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.55, ease: [0.16, 1, 0.3, 1] }} className="text-base lg:text-lg font-light mb-3 max-w-xl" style={{ color: "rgba(240,236,228,0.7)", fontFamily: "var(--font-body)", fontWeight: 300 }}>
           {hero?.subheadline ?? "Supporting people on their first and next unforgettable journeys."}

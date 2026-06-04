@@ -33,8 +33,16 @@ export default function Navbar({ settings }: NavbarProps) {
         }`}
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16 lg:h-20">
+          {/* Logo only visible after scroll */}
           <a href="#" className="flex items-center">
-            <Image src={logoUrl} alt="Backpackervun" width={160} height={20} className="h-7 w-auto object-contain" priority />
+            <Image
+              src={logoUrl}
+              alt="Backpackervun"
+              width={160}
+              height={20}
+              className={`h-6 w-auto object-contain transition-all duration-500 ${scrolled ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+              priority
+            />
           </a>
 
           <ul className="hidden md:flex items-center gap-8">

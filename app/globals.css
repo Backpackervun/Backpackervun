@@ -1,40 +1,23 @@
 @import "tailwindcss";
 
-/* ── Brand Color System ────────────────────────────── */
 :root {
-  /* Primary: Deep Navy */
-  --navy:        #0D1B3E;
-  --navy-2:      #102148;
-  --navy-3:      #162A58;
-  --navy-light:  #1E3566;
-
-  /* Accent: Brand Gold/Amber */
-  --gold:        #E8A820;
-  --gold-light:  #F0BC45;
-  --gold-muted:  rgba(232,168,32,0.18);
-  --gold-faint:  rgba(232,168,32,0.08);
-
-  /* Backgrounds */
-  --bg:          #07111F;
-  --bg-2:        #0D1B35;
-  --bg-3:        #112040;
-
-  /* Text */
-  --text:        #EFF2F8;
-  --text-muted:  rgba(239,242,248,0.5);
-  --text-faint:  rgba(239,242,248,0.22);
-
-  /* Borders */
-  --border:      rgba(255,255,255,0.07);
-  --border-gold: rgba(232,168,32,0.25);
-
-  /* Fonts */
-  --f-display: 'Cormorant', 'Cormorant Garamond', Georgia, serif;
-  --f-head:    'Montserrat', sans-serif;
-  --f-body:    'Montserrat', sans-serif;
+  --navy:       #0D1B3E;
+  --navy-2:     #102148;
+  --navy-3:     #162A58;
+  --bg:         #07111F;
+  --bg-2:       #0D1B35;
+  --bg-3:       #112040;
+  --gold:       #E8A820;
+  --gold-light: #F0BC45;
+  --gold-dim:   rgba(232,168,32,0.12);
+  --border:     rgba(255,255,255,0.07);
+  --text:       #EFF2F8;
+  --text-muted: rgba(239,242,248,0.52);
+  --text-faint: rgba(239,242,248,0.22);
+  --f-head: 'Montserrat', sans-serif;
+  --f-body: 'Montserrat', sans-serif;
 }
 
-/* ── Reset ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -49,35 +32,24 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(232,168,32,0.3); border-radius: 2px; }
 
-/* ── Typography Scale ──────────────────────────────── */
-/* Eyebrow — tiny, spaced caps */
+/* ── Typography ─────────────────────────── */
 .t-eye {
   font-family: var(--f-body);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
 }
 
-/* Display — serif editorial */
-.t-display {
-  font-family: var(--f-display);
-  font-weight: 400;
-  line-height: 1.05;
-  color: var(--text);
-}
-
-/* H1 — Montserrat ExtraBold */
 .t-h1 {
   font-family: var(--f-head);
   font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.025em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   color: var(--text);
 }
 
-/* H2 — Montserrat Bold */
 .t-h2 {
   font-family: var(--f-head);
   font-weight: 700;
@@ -86,70 +58,54 @@ body {
   color: var(--text);
 }
 
-/* Body */
 .t-body {
   font-family: var(--f-body);
-  font-weight: 300;
-  line-height: 1.75;
+  font-weight: 400;
+  line-height: 1.7;
   color: var(--text-muted);
   font-size: 0.875rem;
 }
 
-/* ── Layout ────────────────────────────────────────── */
-.section    { padding: 6.5rem 0; position: relative; }
-.section-sm { padding: 4.5rem 0; position: relative; }
+/* ── Layout ─────────────────────────────── */
+.section    { padding: 6rem 0; position: relative; }
 .container  { max-width: 1180px; margin: 0 auto; padding: 0 2rem; }
-
 @media (min-width: 1024px) { .container { padding: 0 3rem; } }
 
-/* ── Buttons ───────────────────────────────────────── */
+/* ── Buttons ────────────────────────────── */
 .btn-gold {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.85rem 2.1rem;
-  background: var(--gold); color: var(--bg);
-  font-family: var(--f-body); font-size: 0.68rem;
-  font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 0.875rem 2rem;
+  background: var(--gold); color: #07111F;
+  font-family: var(--f-body); font-size: 0.65rem;
+  font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
   text-decoration: none; border: none; cursor: pointer;
-  transition: background 0.22s;
+  transition: background 0.2s;
 }
 .btn-gold:hover { background: var(--gold-light); }
 
 .btn-outline {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.85rem 2.1rem;
+  padding: 0.875rem 2rem;
   background: transparent; color: var(--text);
-  font-family: var(--f-body); font-size: 0.68rem;
-  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--f-body); font-size: 0.65rem;
+  font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
   text-decoration: none;
   border: 1px solid rgba(239,242,248,0.22);
-  cursor: pointer; transition: border-color 0.22s, color 0.22s;
+  cursor: pointer; transition: border-color 0.2s;
 }
 .btn-outline:hover { border-color: rgba(239,242,248,0.6); }
 
-.btn-outline-gold {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.85rem 2.1rem;
-  background: transparent; color: var(--gold);
-  font-family: var(--f-body); font-size: 0.68rem;
-  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid var(--border-gold);
-  cursor: pointer; transition: background 0.22s, color 0.22s;
-}
-.btn-outline-gold:hover { background: var(--gold); color: var(--bg); }
-
-/* ── Card hover utilities ──────────────────────────── */
-.img-zoom { transition: transform 0.6s ease, filter 0.4s; }
-.card-wrap:hover .img-zoom { transform: scale(1.05) !important; filter: saturate(0.8) brightness(0.7) !important; }
-.card-bar { height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; }
+/* ── Card effects ───────────────────────── */
+.card-img { transition: transform 0.55s ease, filter 0.4s; }
+.card-wrap:hover .card-img { transform: scale(1.05) !important; filter: saturate(0.8) brightness(0.65) !important; }
+.card-bar { height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
 .card-wrap:hover .card-bar { transform: scaleX(1); }
 
-/* Dest card */
-.dest-card .dest-img { transition: transform 0.6s ease, filter 0.4s; }
-.dest-card:hover .dest-img { transform: scale(1.06) !important; filter: saturate(0.8) brightness(0.65) !important; }
+.dest-card { cursor: pointer; }
+.dest-card .dest-img { transition: transform 0.55s ease, filter 0.4s; }
+.dest-card:hover .dest-img { transform: scale(1.06) !important; filter: saturate(0.75) brightness(0.62) !important; }
 
-/* Trip row */
-.trip-row { transition: background 0.2s; }
+.trip-row { transition: background 0.18s; }
 .trip-row:hover { background: var(--bg-3) !important; }
 .trip-row .tr-img { transition: transform 0.5s; }
 .trip-row:hover .tr-img { transform: scale(1.1); }

@@ -78,3 +78,30 @@ body {
 .trip-row:hover { background: var(--bg-3) !important; }
 .trip-row .tr-img { transition: transform 0.5s; }
 .trip-row:hover .tr-img { transform: scale(1.1); }
+
+/* ── Decorative patterns ─────────────────── */
+
+/* Diagonal line pattern — used as section accent */
+.pattern-lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(232,168,32,0.04) 8px,
+    rgba(232,168,32,0.04) 9px
+  );
+}
+
+/* Dot grid pattern */
+.pattern-dots {
+  background-image: radial-gradient(circle, rgba(232,168,32,0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Gold shimmer line decoration */
+.deco-line-h {
+  width: 40px; height: 2px; background: var(--gold); display: inline-block;
+}
+.deco-line-v {
+  width: 2px; height: 40px; background: var(--gold); display: inline-block;
+}

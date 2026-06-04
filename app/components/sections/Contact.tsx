@@ -16,14 +16,18 @@ export default function Contact() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="contact" ref={ref} className="section" style={{ background: "var(--bg)", borderTop: "1px solid var(--border)" }}>
-      <div className="container">
-        <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }}>
+    <section id="contact" ref={ref} className="section" style={{ background: "var(--bg)", borderTop: "1px solid var(--border)", position: "relative", overflow: "hidden" }}>
+      {/* Decorative dot grid top-left */}
+      <div className="pattern-dots" style={{ position: "absolute", top: 0, left: 0, width: "220px", height: "220px", pointerEvents: "none", opacity: 0.4 }} />
 
-          {/* Left */}
+      <div className="container" style={{ position: "relative" }}>
+        <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }}>
           <motion.div initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
-            <p className="t-eye" style={{ marginBottom: "0.9rem" }}>Get In Touch</p>
-            <h2 className="t-h2" style={{ fontSize: "clamp(1.7rem, 3.5vw, 2.75rem)", marginBottom: "1.25rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
+              <div className="deco-line-h" />
+              <p className="t-eye">Get In Touch</p>
+            </div>
+            <h2 style={{ fontFamily: "var(--f)", fontSize: "clamp(1.7rem, 3.5vw, 2.75rem)", fontWeight: 800, color: "var(--text)", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "1.25rem" }}>
               Ready to plan<br />your next city?
             </h2>
             <p className="t-body" style={{ marginBottom: "2.25rem", fontSize: "0.85rem" }}>
@@ -36,7 +40,10 @@ export default function Contact() {
             </a>
 
             <div style={{ paddingTop: "2rem", borderTop: "1px solid var(--border)" }}>
-              <p className="t-eye" style={{ marginBottom: "1.1rem", color: "var(--text-faint)" }}>Follow the Journey</p>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.1rem" }}>
+                <div className="deco-line-h" style={{ width: "20px" }} />
+                <p className="t-eye" style={{ color: "var(--text-faint)" }}>Follow the Journey</p>
+              </div>
               <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
                 {[
                   { name: "Instagram", url: "https://instagram.com/backpackervun" },
@@ -44,7 +51,7 @@ export default function Contact() {
                   { name: "TikTok",    url: "https://tiktok.com/@backpackervun" },
                 ].map(s => (
                   <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer"
-                    style={{ fontFamily: "var(--f-body)", fontSize: "0.78rem", fontWeight: 600, color: "var(--text-muted)", textDecoration: "none", transition: "color 0.2s" }}
+                    style={{ fontFamily: "var(--f)", fontSize: "0.78rem", fontWeight: 600, color: "var(--text-muted)", textDecoration: "none", transition: "color 0.2s" }}
                     onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
                     onMouseLeave={e => (e.currentTarget.style.color = "var(--text-muted)")}>
                     {s.name}
@@ -54,7 +61,6 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right — clean rows, no icons */}
           <motion.div initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.15 }}
             style={{ display: "flex", flexDirection: "column", gap: "1px", background: "var(--border)" }}>
             {options.map((item, i) => (
@@ -66,10 +72,10 @@ export default function Contact() {
                 onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "var(--bg-3)"; el.style.borderLeftColor = "var(--gold)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "var(--bg-2)"; el.style.borderLeftColor = "transparent"; }}>
                 <div>
-                  <p style={{ fontFamily: "var(--f-head)", fontSize: "0.88rem", fontWeight: 800, color: "var(--text)", marginBottom: "0.2rem" }}>{item.title}</p>
-                  <p style={{ fontFamily: "var(--f-body)", fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 400 }}>{item.desc}</p>
+                  <p style={{ fontFamily: "var(--f)", fontSize: "0.88rem", fontWeight: 800, color: "var(--text)", marginBottom: "0.2rem" }}>{item.title}</p>
+                  <p style={{ fontFamily: "var(--f)", fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 500 }}>{item.desc}</p>
                 </div>
-                <span style={{ color: "var(--gold)", fontFamily: "var(--f-body)", fontSize: "0.8rem", fontWeight: 700, flexShrink: 0 }}>→</span>
+                <span style={{ color: "var(--gold)", fontFamily: "var(--f)", fontSize: "0.9rem", fontWeight: 800, flexShrink: 0 }}>→</span>
               </motion.a>
             ))}
           </motion.div>

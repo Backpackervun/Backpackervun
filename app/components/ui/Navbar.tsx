@@ -27,7 +27,7 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+          position: "fixed", top: "36px", left: 0, right: 0, zIndex: 50,
           background: scrolled ? "rgba(7,17,31,0.93)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",

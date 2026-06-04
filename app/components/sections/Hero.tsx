@@ -1,76 +1,84 @@
 "use client";
-
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type { HeroData } from "@/app/types/sanity";
 
-interface HeroProps {
-  hero: HeroData | null;
-}
-
-export default function Hero({ hero }: HeroProps) {
-  const bgImage = hero?.heroImageUrl ?? "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80&auto=format&fit=crop";
-
+export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" style={{ background: "var(--color-bg)" }}>
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${bgImage}')`, filter: "saturate(0.6) brightness(0.4)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.2) 40%, rgba(10,10,10,0.65) 80%, rgba(10,10,10,1) 100%)" }} />
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`, backgroundRepeat: "repeat", backgroundSize: "200px" }} />
+    <section style={{ position: "relative", minHeight: "100svh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", overflow: "hidden", background: "var(--bg)" }}>
+
+      {/* ── City BG ── Tokyo Shibuya crossing at night */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage: "url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1920&q=85&auto=format&fit=crop')",
+          backgroundSize: "cover", backgroundPosition: "center",
+          filter: "saturate(0.7) brightness(0.35)",
+        }} />
+        {/* Gradient vignette */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(8,8,8,0.2) 0%, rgba(8,8,8,0.1) 35%, rgba(8,8,8,0.55) 75%, rgba(8,8,8,1) 100%)" }} />
+        {/* Subtle film grain */}
+        <div style={{
+          position: "absolute", inset: 0, opacity: 0.04,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "repeat", backgroundSize: "180px",
+        }} />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
-        {/* Logo as headline */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8 w-full flex justify-center"
-        >
-          <Image
-            src="/logo-white.png"
-            alt="Backpackervun"
-            width={900}
-            height={110}
-            className="w-full max-w-[min(90vw,860px)] h-auto object-contain select-none"
-            priority
-          />
+      {/* ── Content ── */}
+      <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "0 1.5rem", maxWidth: "900px", width: "100%" }}>
+
+        {/* Eyebrow */}
+        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15 }}
+          className="t-eyebrow" style={{ marginBottom: "2rem" }}>
+          Your Traveling Partner
+        </motion.p>
+
+        {/* Logo as hero headline */}
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          style={{ width: "100%", maxWidth: "min(88vw, 820px)", marginBottom: "1.75rem" }}>
+          <Image src="/logo-white.png" alt="Backpackervun" width={820} height={100} style={{ width: "100%", height: "auto", objectFit: "contain" }} priority />
         </motion.div>
 
-        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.55, ease: [0.16, 1, 0.3, 1] }} className="text-base lg:text-lg font-light mb-3 max-w-xl" style={{ color: "rgba(240,236,228,0.7)", fontFamily: "var(--font-body)", fontWeight: 300 }}>
-          {hero?.subheadline ?? "Supporting people on their first and next unforgettable journeys."}
+        {/* Tagline */}
+        <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.5 }}
+          style={{ fontFamily: "var(--f-display)", fontStyle: "italic", fontSize: "clamp(1rem, 2.2vw, 1.25rem)", color: "rgba(242,237,230,0.65)", marginBottom: "0.65rem", fontWeight: 400 }}>
+          Supporting people on their first and next unforgettable journeys.
         </motion.p>
 
-        <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.68, ease: [0.16, 1, 0.3, 1] }} className="text-xs tracking-widest mb-10" style={{ color: "var(--color-accent)", fontFamily: "var(--font-body)", fontWeight: 500 }}>
-          {hero?.hashtag ?? "#AwalSemuaCerita"}
+        {/* Hashtag */}
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.65 }}
+          className="t-eyebrow" style={{ marginBottom: "2.5rem", color: "rgba(196,158,84,0.7)" }}>
+          #AwalSemuaCerita
         </motion.p>
 
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="flex flex-col sm:flex-row items-center gap-4">
-          <a
-            href={hero?.primaryButtonLink ?? "https://travelplanner.backpackervun.com"}
-            target="_blank" rel="noopener noreferrer"
-            className="px-8 py-3.5 text-xs tracking-[0.15em] uppercase transition-all duration-300 font-medium"
-            style={{ fontFamily: "var(--font-body)", backgroundColor: "var(--color-accent)", color: "var(--color-bg)", fontWeight: 600 }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#d4b87a"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--color-accent)"; }}
-          >
-            {hero?.primaryButtonText ?? "Open Planner"}
+        {/* CTA row */}
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.8 }}
+          style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", justifyContent: "center" }}>
+          <a href="https://travelplanner.backpackervun.com" target="_blank" rel="noopener noreferrer" className="btn-gold">
+            Open Planner →
           </a>
-          <a
-            href={hero?.secondaryButtonLink ?? "#private-trip"}
-            className="px-8 py-3.5 text-xs tracking-[0.15em] uppercase border transition-all duration-300"
-            style={{ fontFamily: "var(--font-body)", color: "var(--color-text)", borderColor: "rgba(240,236,228,0.25)", fontWeight: 500 }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(240,236,228,0.6)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(240,236,228,0.25)"; }}
-          >
-            {hero?.secondaryButtonText ?? "Request Private Trip"}
-          </a>
+          <a href="#services" className="btn-ghost">Explore Services</a>
         </motion.div>
       </div>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4, duration: 1 }} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-xs tracking-widest uppercase" style={{ color: "var(--color-muted)", fontFamily: "var(--font-body)", fontWeight: 400 }}>Scroll</span>
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }} className="w-px h-8" style={{ background: "linear-gradient(to bottom, var(--color-accent), transparent)" }} />
+      {/* ── Destination pills ── */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 0.8 }}
+        style={{ position: "absolute", bottom: "5.5rem", left: 0, right: 0, display: "flex", justifyContent: "center", gap: "0.6rem", flexWrap: "wrap", padding: "0 1.5rem", zIndex: 1 }}>
+        {["🇯🇵 Japan", "🇰🇷 Korea", "🇹🇭 Bangkok", "🇪🇺 Europe"].map(d => (
+          <span key={d} style={{
+            fontFamily: "var(--f-body)", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.1em",
+            padding: "0.4rem 0.9rem", border: "1px solid rgba(196,158,84,0.3)",
+            color: "rgba(196,158,84,0.9)", background: "rgba(196,158,84,0.05)",
+          }}>{d}</span>
+        ))}
+      </motion.div>
+
+      {/* Scroll cue */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}
+        style={{ position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", zIndex: 1 }}>
+        <span style={{ fontFamily: "var(--f-body)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-faint)" }}>Scroll</span>
+        <motion.div animate={{ y: [0, 7, 0] }} transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+          style={{ width: "1px", height: "2rem", background: "linear-gradient(to bottom, var(--gold), transparent)" }} />
       </motion.div>
     </section>
   );

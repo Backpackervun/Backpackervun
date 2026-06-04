@@ -1,110 +1,113 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import type { SiteSettings } from "@/app/types/sanity";
 
-interface NavbarProps {
-  settings: SiteSettings | null;
-}
+const links = [
+  { label: "Services", href: "#services" },
+  { label: "Destinations", href: "#destinations" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
+];
 
-export default function Navbar({ settings }: NavbarProps) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const navLinks = settings?.navigationLinks ?? [];
-  const logoUrl = settings?.logoUrl ?? "/logo-white.png";
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const fn = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   return (
     <>
       <motion.header
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "backdrop-blur-xl bg-black/70 border-b border-white/5" : "bg-transparent"
-        }`}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+          transition: "background 0.4s, border-color 0.4s, backdrop-filter 0.4s",
+          background: scrolled ? "rgba(8,8,8,0.88)" : "transparent",
+          backdropFilter: scrolled ? "blur(18px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
+        }}
       >
-        <nav className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16 lg:h-20">
-          {/* Logo only visible after scroll */}
-          <a href="#" className="flex items-center">
+        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "4.5rem" }}>
+          {/* Logo — always visible in navbar */}
+          <a href="#" style={{ display: "flex", alignItems: "center" }}>
             <Image
-              src={logoUrl}
+              src="/logo-white.png"
               alt="Backpackervun"
-              width={160}
-              height={20}
-              className={`h-6 w-auto object-contain transition-all duration-500 ${scrolled ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+              width={148}
+              height={18}
+              style={{ height: "1.25rem", width: "auto", objectFit: "contain",
+                opacity: scrolled ? 1 : 0,
+                transition: "opacity 0.4s",
+                pointerEvents: scrolled ? "auto" : "none"
+              }}
               priority
             />
           </a>
 
-          <ul className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noopener noreferrer" : undefined}
-                  className="text-xs tracking-widest uppercase transition-colors duration-300"
-                  style={{ color: "var(--color-muted)", fontFamily: "var(--font-body)", fontWeight: 500, letterSpacing: "0.12em" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-muted)")}
-                >
-                  {link.label}
-                </a>
-              </li>
+          {/* Desktop nav */}
+          <nav style={{ display: "flex", alignItems: "center", gap: "2.5rem" }} className="hidden-mobile">
+            {links.map(l => (
+              <a key={l.label} href={l.href} style={{
+                fontFamily: "var(--f-body)", fontSize: "0.72rem", fontWeight: 500,
+                letterSpacing: "0.14em", textTransform: "uppercase",
+                color: "var(--text-muted)", textDecoration: "none",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+              onMouseLeave={e => (e.currentTarget.style.color = "var(--text-muted)")}
+              >{l.label}</a>
             ))}
-          </ul>
+          </nav>
 
-          <div className="hidden md:flex items-center">
-            <a
-              href="https://travelplanner.backpackervun.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 border"
-              style={{ color: "var(--color-accent)", borderColor: "rgba(200,169,110,0.35)", fontFamily: "var(--font-body)", fontWeight: 500, letterSpacing: "0.12em" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--color-accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--color-bg)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--color-accent)"; }}
-            >
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <a href="https://travelplanner.backpackervun.com" target="_blank" rel="noopener noreferrer" className="btn-gold hidden-mobile" style={{ padding: "0.6rem 1.4rem", fontSize: "0.65rem" }}>
               Open Planner
             </a>
+            {/* Hamburger */}
+            <button onClick={() => setOpen(v => !v)} aria-label="Menu" className="show-mobile" style={{ background: "none", border: "none", cursor: "pointer", display: "flex", flexDirection: "column", gap: "5px", padding: "4px" }}>
+              <span style={{ display: "block", width: "20px", height: "1px", background: "var(--text)", transition: "all 0.3s", transform: open ? "rotate(45deg) translate(4px,4px)" : "none" }} />
+              <span style={{ display: "block", width: "20px", height: "1px", background: "var(--text)", transition: "all 0.3s", opacity: open ? 0 : 1 }} />
+              <span style={{ display: "block", width: "20px", height: "1px", background: "var(--text)", transition: "all 0.3s", transform: open ? "rotate(-45deg) translate(4px,-4px)" : "none" }} />
+            </button>
           </div>
-
-          <button onClick={() => setMenuOpen((v) => !v)} className="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu">
-            <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} style={{ background: "var(--color-text)" }} />
-            <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} style={{ background: "var(--color-text)" }} />
-            <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} style={{ background: "var(--color-text)" }} />
-          </button>
-        </nav>
+        </div>
       </motion.header>
 
       <AnimatePresence>
-        {menuOpen && (
-          <motion.div key="mobile-menu" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="fixed inset-0 z-40 flex flex-col justify-center items-center" style={{ background: "rgba(10,10,10,0.97)" }}>
-            <ul className="flex flex-col gap-8 text-center">
-              {navLinks.map((link, i) => (
-                <motion.li key={link.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}>
-                  <a href={link.href} onClick={() => setMenuOpen(false)} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined} className="text-2xl tracking-wider uppercase" style={{ fontFamily: "var(--font-body)", color: "var(--color-text)", fontWeight: 300 }}>
-                    {link.label}
-                  </a>
-                </motion.li>
-              ))}
-              <motion.li initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.32 }}>
-                <a href="https://travelplanner.backpackervun.com" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} className="text-xs tracking-widest uppercase px-6 py-3 border inline-block" style={{ color: "var(--color-accent)", borderColor: "rgba(200,169,110,0.4)" }}>
-                  Open Planner
-                </a>
-              </motion.li>
-            </ul>
+        {open && (
+          <motion.div key="mob" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}
+            style={{ position: "fixed", inset: 0, zIndex: 40, background: "rgba(8,8,8,0.97)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "2.5rem" }}>
+            {links.map((l, i) => (
+              <motion.a key={l.label} href={l.href} onClick={() => setOpen(false)}
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
+                style={{ fontFamily: "var(--f-display)", fontSize: "2rem", color: "var(--text)", textDecoration: "none", fontStyle: "italic" }}>
+                {l.label}
+              </motion.a>
+            ))}
+            <motion.a href="https://travelplanner.backpackervun.com" target="_blank" rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.32 }}
+              className="btn-gold" onClick={() => setOpen(false)}>
+              Open Planner
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style>{`
+        .hidden-mobile { display: flex; }
+        .show-mobile { display: none; }
+        @media (max-width: 768px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile { display: flex !important; }
+        }
+      `}</style>
     </>
   );
 }

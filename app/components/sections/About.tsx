@@ -1,63 +1,76 @@
 "use client";
-
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
-import type { AboutData } from "@/app/types/sanity";
 
-interface AboutProps {
-  about: AboutData | null;
-}
-
-export default function About({ about }: AboutProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function About() {
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const bio = about?.bio ?? ["From Indonesia — a passionate traveler with a deep love for discovering new cultures, people, and places."];
-  const stats = about?.stats ?? [{ value: "58+", label: "Participants" }, { value: "10+", label: "Countries" }, { value: "36", label: "Umrah Group" }];
-  const profileImg = about?.profileImageUrl ?? "/ervan-profile.png";
-
   return (
-    <section id="about" ref={ref} className="relative py-28 lg:py-40 overflow-hidden" style={{ background: "var(--color-surface)" }}>
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--color-border)" }} />
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <motion.div initial={{ opacity: 0, x: -28 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="flex flex-col">
-            <p className="text-xs tracking-[0.3em] uppercase mb-6" style={{ color: "var(--color-accent)", fontFamily: "var(--font-body)", fontWeight: 500 }}>{about?.eyebrow ?? "About Me"}</p>
-            <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight mb-8 uppercase" style={{ fontFamily: "var(--font-body)", color: "var(--color-text)" }}>
-              Hi, I&apos;m<br /><span style={{ color: "var(--color-accent)" }}>{about?.name ?? "Ervan Kusuma"}.</span>
+    <section id="about" ref={ref} className="section" style={{ background: "var(--bg-2)", borderTop: "1px solid var(--border)" }}>
+      <div className="container">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center" }} className="about-grid">
+          {/* Left */}
+          <motion.div initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.9 }}>
+            <p className="t-eyebrow" style={{ marginBottom: "1rem" }}>About Me</p>
+            <h2 style={{ fontFamily: "var(--f-body)", fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 800, color: "var(--text)", lineHeight: 1.1, marginBottom: "2rem", letterSpacing: "-0.02em", textTransform: "uppercase" }}>
+              Hi, I&apos;m<br />
+              <span style={{ color: "var(--gold)" }}>Ervan Kusuma.</span>
             </h2>
-            <div className="space-y-5 text-sm font-light leading-loose" style={{ color: "rgba(240,236,228,0.6)", fontFamily: "var(--font-body)", fontWeight: 300 }}>
-              {bio.map((para, i) => <p key={i}>{para}</p>)}
-              {about?.bioHighlight && (
-                <p><span style={{ color: "var(--color-accent)", fontWeight: 500 }}>{about.bioHighlight}</span></p>
-              )}
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2rem" }}>
+              {[
+                "From Indonesia — a passionate traveler with a deep love for discovering new cultures, people, and places across Asia and the Middle East.",
+                "I've led group trips of various sizes — from intimate private groups to 58+ participants, including monthly Umrah pilgrimages for up to 36 people.",
+                "As your trip buddy, I handle everything: itinerary, logistics, coordination, and authentic moments captured through photo and video.",
+              ].map((p, i) => (
+                <p key={i} className="t-body">{p}</p>
+              ))}
             </div>
-            <div className="mt-10 grid grid-cols-3 gap-6 pt-8" style={{ borderTop: "1px solid var(--color-border)" }}>
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-2xl lg:text-3xl font-bold mb-1" style={{ fontFamily: "var(--font-body)", color: "var(--color-accent)" }}>{stat.value}</p>
-                  <p className="text-xs tracking-widest uppercase" style={{ color: "var(--color-muted)", fontFamily: "var(--font-body)", fontWeight: 400 }}>{stat.label}</p>
+
+            {/* Highlight */}
+            <div style={{ padding: "1.25rem 1.5rem", borderLeft: "2px solid var(--gold)", background: "var(--gold-dim)", marginBottom: "2.5rem" }}>
+              <p style={{ fontFamily: "var(--f-display)", fontStyle: "italic", fontSize: "1rem", color: "var(--text)", lineHeight: 1.6 }}>
+                &ldquo;With me, travel becomes more than a destination — it becomes a story worth remembering.&rdquo;
+              </p>
+            </div>
+
+            {/* Stats */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", paddingTop: "1.75rem", borderTop: "1px solid var(--border)" }}>
+              {[["58+", "Peserta"], ["10+", "Negara"], ["36", "Umrah Group"]].map(([val, lbl]) => (
+                <div key={lbl}>
+                  <p style={{ fontFamily: "var(--f-display)", fontSize: "2rem", color: "var(--gold)", fontWeight: 400, lineHeight: 1 }}>{val}</p>
+                  <p className="t-eyebrow" style={{ marginTop: "0.4rem", color: "var(--text-faint)" }}>{lbl}</p>
                 </div>
               ))}
             </div>
-            <p className="mt-8 text-xs tracking-widest" style={{ color: "var(--color-accent)", fontFamily: "var(--font-body)", fontWeight: 600 }}>{about?.hashtag ?? "#AwalSemuaCerita"}</p>
+
+            <p className="t-eyebrow" style={{ marginTop: "1.75rem", color: "rgba(196,158,84,0.6)" }}>#AwalSemuaCerita</p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 28 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 1.1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} className="relative">
-            <div className="relative overflow-hidden" style={{ aspectRatio: "3/4" }}>
-              <Image src={profileImg} alt={`${about?.name ?? "Ervan Kusuma"} — Founder of Backpackervun`} fill className="object-cover object-top" style={{ filter: "saturate(0.85) brightness(0.9)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(10,10,10,0.2) 0%, transparent 50%, rgba(10,10,10,0.3) 100%)" }} />
+          {/* Right — photo */}
+          <motion.div initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 1, delay: 0.1 }}
+            style={{ position: "relative" }}>
+            <div style={{ position: "relative", overflow: "hidden", aspectRatio: "3/4" }}>
+              <Image src="/ervan-profile.png" alt="Ervan Kusuma" fill style={{ objectFit: "cover", objectPosition: "top", filter: "brightness(0.9) saturate(0.9)" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(8,8,8,0.15) 0%, transparent 60%)" }} />
             </div>
-            {about?.quote && (
-              <div className="absolute -bottom-6 -left-6 lg:-left-10 max-w-xs p-5" style={{ background: "var(--color-bg)", border: "1px solid var(--color-border)" }}>
-                <p className="text-sm font-light leading-relaxed mb-3 italic" style={{ fontFamily: "var(--font-body)", color: "rgba(240,236,228,0.75)", fontWeight: 300 }}>&ldquo;{about.quote}&rdquo;</p>
-                <span className="text-xs tracking-widest uppercase" style={{ color: "var(--color-accent)", fontFamily: "var(--font-body)", fontWeight: 600 }}>— {about.name}</span>
-              </div>
-            )}
+            {/* City badge */}
+            <div style={{ position: "absolute", bottom: "-1.5rem", left: "-1.5rem", padding: "1.1rem 1.4rem", background: "var(--bg)", border: "1px solid var(--border)", maxWidth: "240px" }}>
+              <p style={{ fontFamily: "var(--f-body)", fontSize: "0.75rem", fontWeight: 500, color: "var(--text)", lineHeight: 1.5 }}>
+                Currently building the best way to experience Asia&apos;s cities. 🌏
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .about-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

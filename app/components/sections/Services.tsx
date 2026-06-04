@@ -9,7 +9,7 @@ const services = [
     desc: "Curated group departures to Asia's best cities. Join solo, meet fellow travelers, and experience every destination fully guided.",
     // Japan landmark - Senso-ji temple / Tokyo tower
     img: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=800&q=90&auto=format&fit=crop",
-    cta: "See Schedule", href: "#schedule",
+    cta: "See Schedule", href: "/experiences/open-trip",
   },
   {
     no: "02", tag: "Custom Trip",
@@ -17,7 +17,7 @@ const services = [
     desc: "Fully tailored travel experience designed around you. From intimate couple getaways to group adventures of 50+.",
     // South Korea landmark - Gyeongbokgung Palace Seoul
     img: "https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=800&q=90&auto=format&fit=crop",
-    cta: "Request Trip", href: "#contact",
+    cta: "Request Trip", href: "/contact",
   },
   {
     no: "03", tag: "Sport Tourism",
@@ -25,7 +25,7 @@ const services = [
     desc: "Travel for athletes and enthusiasts. Join World Marathon Majors, sport events, and active experiences in cities around the world.",
     // World marathon majors - runners mass race
     img: "https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=800&q=90&auto=format&fit=crop",
-    cta: "Learn More", href: "#contact",
+    cta: "Learn More", href: "/contact",
   },
   {
     no: "04", tag: "Digital Tool",
@@ -41,7 +41,7 @@ const services = [
     desc: "Premium itinerary templates, budget trackers, and city travel guides. Download once, use forever.",
     // Hot air balloon
     img: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=800&q=90&auto=format&fit=crop",
-    cta: "Browse Products", href: "#products",
+    cta: "Browse Products", href: "/products",
   },
 ];
 

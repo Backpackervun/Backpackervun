@@ -105,3 +105,25 @@ body {
 .deco-line-v {
   width: 2px; height: 40px; background: var(--gold); display: inline-block;
 }
+
+/* ── Server-side safe hover states ─────────── */
+.hover-gold-border { border-left: 2px solid transparent; transition: border-color 0.18s, background 0.18s; }
+.hover-gold-border:hover { border-left-color: var(--gold) !important; background: var(--bg-3) !important; }
+
+.hover-gold-text { transition: color 0.2s; color: var(--text-muted); }
+.hover-gold-text:hover { color: var(--gold) !important; }
+
+.hover-outline-gold { transition: border-color 0.2s, color 0.2s; }
+.hover-outline-gold:hover { border-color: var(--gold) !important; color: var(--gold) !important; }
+
+.hover-bright { transition: color 0.2s; }
+.hover-bright:hover { color: var(--text) !important; }
+
+.hover-bg-light { transition: background 0.18s; }
+.hover-bg-light:hover { background: var(--bg-3) !important; }
+
+.hover-border-gold { border-left: 2px solid transparent; transition: border-color 0.2s; }
+.hover-border-gold:hover { border-left-color: var(--gold) !important; }
+
+/* ── Section variants ───────────────────── */
+.section-sm { padding: 4rem 0; position: relative; }

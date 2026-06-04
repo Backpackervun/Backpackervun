@@ -4,97 +4,95 @@ import { useRef } from "react";
 
 const destinations = [
   {
-    city: "Tokyo",
-    country: "Japan",
-    desc: "Shibuya, Shinjuku, Asakusa",
+    city: "Japan",
+    sub: "Tokyo · Kyoto · Osaka",
     img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80&auto=format&fit=crop",
-    flag: "🇯🇵",
-    status: "Available",
+    status: "available",
   },
   {
-    city: "Seoul",
-    country: "South Korea",
-    desc: "Myeongdong, Gangnam, Hongdae",
-    img: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=800&q=80&auto=format&fit=crop",
-    flag: "🇰🇷",
-    status: "Available",
+    city: "South Korea",
+    sub: "Seoul · Busan · Jeju",
+    img: "https://images.unsplash.com/photo-1601621915196-2621bfb0cd6e?w=800&q=80&auto=format&fit=crop",
+    status: "available",
   },
   {
-    city: "Bangkok",
-    country: "Thailand",
-    desc: "Sukhumvit, Chatuchak, Chao Phraya",
+    city: "Thailand",
+    sub: "Bangkok · Chiang Mai",
     img: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80&auto=format&fit=crop",
-    flag: "🇹🇭",
-    status: "Available",
+    status: "available",
   },
   {
-    city: "Paris",
-    country: "France",
-    desc: "Eiffel, Le Marais, Montmartre",
+    city: "SEA Trip",
+    sub: "Multi-country Southeast Asia",
+    img: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=800&q=80&auto=format&fit=crop",
+    status: "available",
+  },
+  {
+    city: "Europe",
+    sub: "Paris · Amsterdam · London",
     img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80&auto=format&fit=crop",
-    flag: "🇫🇷",
-    status: "Coming Soon",
+    status: "coming",
+  },
+  {
+    city: "Umrah",
+    sub: "Makkah · Madinah",
+    img: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=800&q=80&auto=format&fit=crop",
+    status: "available",
+  },
+  {
+    city: "Sport Tourism",
+    sub: "Berlin Marathon & more",
+    img: "https://images.unsplash.com/photo-1534787238916-9ba6764efd4f?w=800&q=80&auto=format&fit=crop",
+    status: "available",
   },
 ];
 
 export default function Destinations() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section id="destinations" ref={ref} className="section" style={{ background: "var(--bg-2)", borderTop: "1px solid var(--border)" }}>
       <div className="container">
-        {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}
-          style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "1.5rem", marginBottom: "3.5rem" }}>
+          style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "1.5rem", marginBottom: "3rem" }}>
           <div>
-            <p className="t-eyebrow" style={{ marginBottom: "0.9rem" }}>City Destinations</p>
+            <p className="t-eye" style={{ marginBottom: "0.9rem" }}>Destinations</p>
             <h2 style={{ fontFamily: "var(--f-display)", fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "var(--text)", fontWeight: 400 }}>
-              Urban adventures<br /><em>waiting for you.</em>
+              Cities worth<br /><em>every step.</em>
             </h2>
           </div>
-          <p className="t-body" style={{ maxWidth: "300px", fontSize: "0.82rem" }}>
-            City tours crafted for those who want to feel the pulse of a place — not just see it.
+          <p className="t-body" style={{ maxWidth: "290px", fontSize: "0.82rem" }}>
+            Curated city experiences for those who want to feel the pulse of a place — not just pass through.
           </p>
         </motion.div>
 
-        {/* Destination grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1.25rem" }}>
+        {/* Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))", gap: "1px", background: "var(--border)" }}>
           {destinations.map((d, i) => (
-            <motion.div key={d.city} initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: i * 0.1 }}
-              style={{ position: "relative", overflow: "hidden", cursor: "pointer", aspectRatio: "3/4" }}
-              className="dest-card">
-              {/* Image */}
-              <div className="dest-img" style={{
-                position: "absolute", inset: 0, backgroundImage: `url('${d.img}')`,
-                backgroundSize: "cover", backgroundPosition: "center",
-                filter: "saturate(0.5) brightness(0.55)",
-                transition: "transform 0.6s ease, filter 0.4s",
-              }} />
-              {/* Overlay */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.3) 50%, transparent 100%)" }} />
+            <motion.div key={d.city} className="dest-card"
+              initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: i * 0.07 }}
+              style={{ position: "relative", overflow: "hidden", aspectRatio: "4/5", cursor: "pointer", background: "var(--bg)" }}>
+              <div className="dest-img" style={{ position: "absolute", inset: 0, backgroundImage: `url('${d.img}')`, backgroundSize: "cover", backgroundPosition: "center", filter: "saturate(0.45) brightness(0.5)" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(7,17,31,0.95) 0%, rgba(7,17,31,0.4) 55%, transparent 100%)" }} />
 
-              {/* Status badge */}
-              {d.status === "Coming Soon" && (
-                <div style={{ position: "absolute", top: "1rem", right: "1rem" }}>
-                  <span style={{ fontFamily: "var(--f-body)", fontSize: "0.58rem", fontWeight: 600, letterSpacing: "0.15em", textTransform: "uppercase", padding: "0.3rem 0.7rem", background: "rgba(8,8,8,0.8)", color: "var(--text-muted)", backdropFilter: "blur(6px)", border: "1px solid var(--border)" }}>Soon</span>
+              {d.status === "coming" && (
+                <div style={{ position: "absolute", top: "0.85rem", right: "0.85rem" }}>
+                  <span style={{ fontFamily: "var(--f-body)", fontSize: "0.55rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", padding: "0.28rem 0.65rem", background: "rgba(7,17,31,0.85)", color: "var(--text-muted)", border: "1px solid var(--border)", backdropFilter: "blur(6px)" }}>Coming Soon</span>
                 </div>
               )}
 
-              {/* Content */}
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.5rem 1.25rem" }}>
-                <p style={{ fontFamily: "var(--f-body)", fontSize: "0.65rem", color: "var(--gold)", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.4rem" }}>{d.flag} {d.country}</p>
-                <h3 style={{ fontFamily: "var(--f-display)", fontSize: "1.6rem", color: "var(--text)", fontWeight: 400, lineHeight: 1, marginBottom: "0.5rem" }}>{d.city}</h3>
-                <p style={{ fontFamily: "var(--f-body)", fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 300 }}>{d.desc}</p>
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.25rem 1.1rem" }}>
+                <h3 style={{ fontFamily: "var(--f-head)", fontSize: "1.05rem", fontWeight: 700, color: "var(--text)", lineHeight: 1, marginBottom: "0.4rem", letterSpacing: "-0.01em" }}>{d.city}</h3>
+                <p style={{ fontFamily: "var(--f-body)", fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 300 }}>{d.sub}</p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* CTA */}
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.4 }}
-          style={{ textAlign: "center", marginTop: "3rem" }}>
-          <a href="#contact" className="btn-ghost">Request a Custom Destination</a>
+        <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.5 }}
+          style={{ textAlign: "center", marginTop: "2.5rem" }}>
+          <a href="#contact" className="btn-outline">Request a Custom Destination</a>
         </motion.div>
       </div>
     </section>

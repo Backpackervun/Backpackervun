@@ -1,3 +1,7 @@
+// Force this page to always fetch fresh data from Sanity on every request
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { client } from "@/app/sanity/lib/client";
 import { HOMEPAGE_QUERY } from "@/app/sanity/lib/queries";
 import type { HomepageData } from "@/app/types/sanity";
@@ -11,7 +15,6 @@ import About from "@/app/components/sections/About";
 import FeaturedProducts from "@/app/components/sections/FeaturedProducts";
 import Footer from "@/app/components/ui/Footer";
 
-// Fallback data used when Sanity is not yet configured
 const FALLBACK: HomepageData = {
   settings: {
     siteTitle: "Backpackervun",
@@ -108,33 +111,32 @@ const FALLBACK: HomepageData = {
 };
 
 async function getHomepageData(): Promise<HomepageData> {
-  // If Sanity env vars aren't set yet, return fallback data silently
   if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+    console.log("[page] No Sanity project ID — using fallback");
     return FALLBACK;
   }
   try {
-    const data = await client.fetch<HomepageData>(HOMEPAGE_QUERY, {}, {
-      next: { revalidate: 60 }, // ISR: re-fetch every 60 seconds
-    });
-    // Merge fallback for any null sections
+    console.log("[page] Fetching from Sanity project:", process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
+    const data = await client.fetch<HomepageData>(HOMEPAGE_QUERY);
+    console.log("[page] Sanity fetch OK. about.name =", data?.about?.name);
     return {
-      settings: data.settings ?? FALLBACK.settings,
-      hero: data.hero ?? FALLBACK.hero,
+      settings:      data.settings      ?? FALLBACK.settings,
+      hero:          data.hero          ?? FALLBACK.hero,
       ecosystemCards: data.ecosystemCards?.length ? data.ecosystemCards : FALLBACK.ecosystemCards,
-      privateTrip: data.privateTrip ?? FALLBACK.privateTrip,
-      tripSeries: data.tripSeries?.length ? data.tripSeries : FALLBACK.tripSeries,
-      about: data.about ?? FALLBACK.about,
-      products: data.products?.length ? data.products : FALLBACK.products,
-      footer: data.footer ?? FALLBACK.footer,
+      privateTrip:   data.privateTrip   ?? FALLBACK.privateTrip,
+      tripSeries:    data.tripSeries?.length ? data.tripSeries : FALLBACK.tripSeries,
+      about:         data.about         ?? FALLBACK.about,
+      products:      data.products?.length ? data.products : FALLBACK.products,
+      footer:        data.footer        ?? FALLBACK.footer,
     };
-  } catch {
+  } catch (err) {
+    console.error("[page] Sanity fetch FAILED:", err);
     return FALLBACK;
   }
 }
 
 export default async function HomePage() {
   const data = await getHomepageData();
-
   return (
     <main>
       <Navbar settings={data.settings} />

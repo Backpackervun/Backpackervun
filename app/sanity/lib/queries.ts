@@ -139,7 +139,7 @@ export const HOMEPAGE_QUERY = groq`
       eyebrow, headline, headlineAccent, description, features, buttonText,
       destinations[] { name, region }
     },
-    "tripSeries": *[_type == "tripSeries" && featured == true && status == "open"] | order(startDate asc) [0..2] {
+    "tripSeries": *[_type == "tripSeries" && status != "cancelled" && status != "completed"] | order(startDate asc) [0..2] {
       _id, tag, destination, title,
       "imageUrl": image.asset->url,
       startDate, endDate, duration, totalSlots, slotsLeft, price, status
@@ -149,7 +149,7 @@ export const HOMEPAGE_QUERY = groq`
       "profileImageUrl": profileImage.asset->url,
       quote, stats[] { value, label }, hashtag
     },
-    "products": *[_type == "product" && featured == true] | order(order asc) {
+    "products": *[_type == "product"] | order(order asc) {
       _id, title, tag, description,
       "thumbnailUrl": thumbnail.asset->url,
       price, buttonText, buttonLink
